@@ -21,7 +21,7 @@ CREATE TABLE manufacturer(
     location_id INT UNSIGNED NOT NULL,
     net_worth INT UNSIGNED NOT NULL,
     PRIMARY KEY (manufac_id),
-    FOREIGN KEY (manufac_location_id) REFERENCES manufac_location (location_id)
+    FOREIGN KEY (location_id) REFERENCES manufac_location (location_id)
 );
 
 CREATE TABLE drink_type(
