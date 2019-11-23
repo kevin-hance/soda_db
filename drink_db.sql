@@ -56,22 +56,41 @@ INSERT INTO manufac_location VALUES(1, "106 E Meme Street", "Spokane", "Washingt
 "United States", "PO BOX 77768");
 INSERT INTO manufac_location VALUES(2, "123 E Boone Avenue", "Seattle","Washington",
 "United States", "PO BOX 6588");
+INSERT INTO manufac_location VALUES(3, "321 W Boof Boulevard", "Bellingham","Washington",
+"United States", "PO BOX 8431");
+INSERT INTO manufac_location VALUES(4, "89123 NE 344th Ct.", "Cheesetown","Oregon",
+"United States", "PO BOX 32841");
 
 INSERT INTO manufacturer VALUES(1,"Pepsi Co",1,5000000);
-INSERT INTO manufacturer VALUES(2,"Coca-cola Co",2,45000000);
+INSERT INTO manufacturer VALUES(2,"Coca-Cola Co",2,45000000);
 
 INSERT INTO flavor VALUES(1,"Cola");
 INSERT INTO flavor VALUES(2,"Lemon-Lime");
 INSERT INTO flavor VALUES(3,"Cherry");
+INSERT INTO flavor VALUES(4,"Redbull");
+INSERT INTO flavor VALUES(5,"Orange");
+INSERT INTO flavor VALUES(6,"Grape");
 
 INSERT INTO drink_type VALUES(1,"Soda");
 INSERT INTO drink_type VALUES(2, "Health");
+INSERT INTO drink_type VALUES(3, "Energy Drink");
 
+/* drink_id, drink_name, manufac_id, caffeine_content, sugar_content, sodium_content, serving_size, drink_type_id, flavor_id */
 INSERT INTO drink VALUES(1,"Bepsi",1,100,40,25,16,1,1);
 INSERT INTO drink VALUES(2,"Coke",2,100,36,27,16,1,1);
 INSERT INTO drink VALUES(3,"Mountain Loo",1,96,38,25,8,1,2);
 INSERT INTO drink VALUES(4,"Cherry Bepsi",1,100,45,39,12,1,3);
 INSERT INTO drink VALUES(5,"Vitamin Water Cherry",2,0,36,45,16,2,3);
+INSERT INTO drink VALUES(6,"Bang Cherry",2,300,0,20,16,3,3);
+INSERT INTO drink VALUES(7,"Sugarfree Redbull",1,81,0,15,8,3,4);
+INSERT INTO drink VALUES(8,"Normal Redbull",1,81,20,15,8,3,4);
+INSERT INTO drink VALUES(9,"Sprit",1,0,30,25,8,1,2);
+INSERT INTO drink VALUES(10,"Orange Fantuh",2,0,30,25,8,1,5);
+INSERT INTO drink VALUES(11,"Grape Fantuh",2,0,36,27,8,1,6);
+INSERT INTO drink VALUES(12,"Orange Sprit",1,0,36,27,8,1,5);
 
-SELECT *
-FROM drink d JOIN flavor f ON 
+SELECT d.drink_name, f.flavor_name, dt.drink_type_name, d.sugar_content, d.caffeine_content
+FROM drink d JOIN flavor f ON d.flavor_id = f.flavor_id
+JOIN drink_type dt ON d.drink_type_id = dt.drink_type_id
+ORDER BY d.drink_name ASC;
+
