@@ -22,7 +22,7 @@
         </form>
       </div>
       <div style="float:left; width:40%; border:black; border-width:3px; border-style:solid; padding:3px;">
-        <p> Favorite soda result here </p>
+        <p> User favorite sodas </p>
       </div>
     </div>
     <?php
