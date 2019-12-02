@@ -1,3 +1,6 @@
+<?php
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +11,16 @@
 
 <body>
   <div id="container">
-    <h2> WELCOME USER </h2>
+    <?php
+    include('database.php');
+    $user_id = $_SESSION['user_id'];
+
+    $dbRecords = mysql_query("SELECT username FROM user WHERE user_id = '$user_id'",$dbLocalhost) or die("Problem reading table: ".mysql_error());
+    $record = mysql_fetch_row($dbRecords);
+    $username = $record[0];
+    $headername = strtoupper($username);
+    echo "<h2> WELCOME $headername</h2>";
+    ?>
     <div>
       <div style="float:left; width:40%;">
         <form action="favorites.php" style="margin:10px;">
@@ -26,7 +38,6 @@
       </div>
     </div>
     <?php
-
     ?>
   </div>
 </body>

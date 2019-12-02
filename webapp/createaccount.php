@@ -10,7 +10,7 @@
     <div id="container">
         <fieldset>
                 <legend>Account Creation</legend>
-            <form>
+            <form action='' method='POST'>
                 Username:<br>
                 <input type="text" name="username"><br>
                 Password:<br>
@@ -25,6 +25,8 @@
             </form>
         </fieldset>
         <?php
+        include('database.php');
+        if(is)
         ?>
     </div>
 </body>

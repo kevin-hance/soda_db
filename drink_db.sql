@@ -1,6 +1,7 @@
 DROP TABLE IF EXISTS drink;
 DROP TABLE IF EXISTS flavor;
 DROP TABLE IF EXISTS drink_type;
+DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS manufacturer;
 DROP TABLE IF EXISTS manufac_location;
 
@@ -22,6 +23,14 @@ CREATE TABLE manufacturer(
     net_worth INT UNSIGNED NOT NULL,
     PRIMARY KEY (manufac_id),
     FOREIGN KEY (location_id) REFERENCES manufac_location (location_id)
+);
+
+CREATE TABLE user (
+    user_id INT UNSIGNED,
+    username VARCHAR(50) NOT NULL,
+    user_password VARCHAR(50) NOT NULL,
+    user_typer CHAR(1) NOT NULL,
+    PRIMARY KEY (user_id)
 );
 
 CREATE TABLE drink_type(
@@ -63,6 +72,9 @@ INSERT INTO manufac_location VALUES(4, "89123 NE 344th Ct.", "Cheesetown","Orego
 
 INSERT INTO manufacturer VALUES(1,"Pepsi Co",1,5000000);
 INSERT INTO manufacturer VALUES(2,"Coca-Cola Co",2,45000000);
+
+INSERT INTO user VALUES(1, 'admin', 'admin', 'U');
+INSERT INTO user VALUES(2, 'Bepsi', 'ImBepsi', 'M');
 
 INSERT INTO flavor VALUES(1,"Cola");
 INSERT INTO flavor VALUES(2,"Lemon-Lime");
