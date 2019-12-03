@@ -17,7 +17,9 @@
     <p> Attribute 6: #DRINKTYPE# </p>
     <p> Attribute 7: #FLAVOR# </p>
     <?php
-
+    // ZAKCKCK USE THIS VARIABLE!!!!
+    $drink_name = $_POST['drink_name'];
+    echo "$drink_name";
     ?>
   </div>
 </body>

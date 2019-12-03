@@ -1,5 +1,5 @@
 <?php
- session_start();
+  session_start();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,7 +23,7 @@
     ?>
     <div>
       <div style="float:left; width:40%;">
-        <form action="favorites.php" style="margin:10px;">
+        <form action="favorites.php" method="POST" style="margin:10px;">
           <input type="submit" value="Your Favorites"/>
         </form>
         <form action="search.php" style="margin:10px;">
@@ -40,9 +40,12 @@
                     FROM drink d JOIN favorite f USING (drink_id)
                     WHERE user_id = '$user_id'";
           $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          echo "<form action='results.php' method='POST'>";
           while($record = mysql_fetch_row($dbRecords)){
-            echo "<p>{$record[0]}</p>";
-        }
+            echo "<input type= 'submit' value='{$record[0]}' name='drink_name'/>";
+            echo "<br></br>";
+          }
+          echo "</form>";
         ?>
       </div>
     </div>
