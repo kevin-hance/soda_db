@@ -1,3 +1,6 @@
+<?php
+ session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -8,7 +11,17 @@
 
 <body>
   <div id="container">
-  <h2> WELCOME MANUFACTURER </h2>
+  <?php
+    include('database.php');
+    $manufac_id = $_SESSION['user_id'];
+    $dbRecords = mysql_query("SELECT manufac_name,manufac_id FROM manufacturer WHERE user_id = $manufac_id",$dbLocalhost) or die("Problem reading table: ".mysql_error());
+    $record = mysql_fetch_row($dbRecords);
+    $manufac_name = $record[0];
+    $_SESSION['manufac_id'] = $record[1];
+    
+    $headername = strtoupper($manufac_name);
+    echo "<h2> WELCOME $headername</h2>";
+    ?>
     <div>
       <div style="float:left; width:40%;">
         <form action="add.php" style="margin:10px;">
@@ -23,6 +36,15 @@
       </div>
       <div style="float:left; width:40%; border:black; border-width:3px; border-style:solid; padding:3px;">
         <p> All manufacture sodas </p>
+        <?php
+          $query = "SELECT d.drink_name 
+                    FROM drink d
+                    WHERE manufac_id = '$manufac_id'";
+          $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          while($record = mysql_fetch_row($dbRecords)){
+            echo "<p>{$record[0]}</p>";
+        }
+        ?>
       </div>
     </div>
     <?php

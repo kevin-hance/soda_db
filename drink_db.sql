@@ -1,9 +1,10 @@
+DROP TABLE IF EXISTS favorite;
 DROP TABLE IF EXISTS drink;
-DROP TABLE IF EXISTS flavor;
 DROP TABLE IF EXISTS drink_type;
-DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS manufacturer;
+DROP TABLE IF EXISTS user;
 DROP TABLE IF EXISTS manufac_location;
+DROP TABLE IF EXISTS flavor;
 
 
 CREATE TABLE manufac_location(
@@ -16,21 +17,23 @@ CREATE TABLE manufac_location(
     PRIMARY KEY (location_id)
 );
 
-CREATE TABLE manufacturer(
-    manufac_id INT UNSIGNED,
-    manufac_name VARCHAR(50) NOT NULL,
-    location_id INT UNSIGNED NOT NULL,
-    net_worth INT UNSIGNED NOT NULL,
-    PRIMARY KEY (manufac_id),
-    FOREIGN KEY (location_id) REFERENCES manufac_location (location_id)
-);
-
 CREATE TABLE user (
     user_id INT UNSIGNED AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     user_password VARCHAR(50) NOT NULL,
     user_typer CHAR(1) NOT NULL,
     PRIMARY KEY (user_id)
+);
+
+CREATE TABLE manufacturer(
+    manufac_id INT UNSIGNED AUTO_INCREMENT,
+    manufac_name VARCHAR(50) NOT NULL,
+    location_id INT UNSIGNED NOT NULL,
+    net_worth INT UNSIGNED NOT NULL,
+	user_id INT UNSIGNED NOT NULL,
+    PRIMARY KEY (manufac_id),
+    FOREIGN KEY (location_id) REFERENCES manufac_location (location_id),
+	FOREIGN KEY (user_id) REFERENCES user (user_id)
 );
 
 CREATE TABLE drink_type(
@@ -78,11 +81,12 @@ INSERT INTO manufac_location VALUES(3, "321 W Boof Boulevard", "Bellingham","Was
 INSERT INTO manufac_location VALUES(4, "89123 NE 344th Ct.", "Cheesetown","Oregon",
 "United States", "PO BOX 32841");
 
-INSERT INTO manufacturer VALUES(1,"Pepsi Co",1,5000000);
-INSERT INTO manufacturer VALUES(2,"Coca-Cola Co",2,45000000);
-
 INSERT INTO user VALUES(NULL, 'admin', 'admin', 'U');
 INSERT INTO user VALUES(NULL, 'Bepsi', 'ImBepsi', 'M');
+INSERT INTO user VALUES(NULL, 'Coca-Koala', 'ImCoco', 'M');
+
+INSERT INTO manufacturer VALUES(1,"Pepsi Co",1,5000000, 2);
+INSERT INTO manufacturer VALUES(2,"Coca-Cola Co",2,45000000, 3);
 
 INSERT INTO flavor VALUES(1,"Cola");
 INSERT INTO flavor VALUES(2,"Lemon-Lime");
