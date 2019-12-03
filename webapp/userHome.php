@@ -34,11 +34,18 @@
         </form>
       </div>
       <div style="float:left; width:40%; border:black; border-width:3px; border-style:solid; padding:3px;">
-        <p> User favorite sodas </p>
+        <h3> User favorite sodas </h3>
+        <?php
+          $query = "SELECT d.drink_name 
+                    FROM drink d JOIN favorite f USING (drink_id)
+                    WHERE user_id = '$user_id'";
+          $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          while($record = mysql_fetch_row($dbRecords)){
+            echo "<p>{$record[0]}</p>";
+        }
+        ?>
       </div>
     </div>
-    <?php
-    ?>
   </div>
 </body>
 

@@ -26,7 +26,7 @@ CREATE TABLE manufacturer(
 );
 
 CREATE TABLE user (
-    user_id INT UNSIGNED,
+    user_id INT UNSIGNED AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL,
     user_password VARCHAR(50) NOT NULL,
     user_typer CHAR(1) NOT NULL,
@@ -61,6 +61,14 @@ CREATE TABLE drink(
     FOREIGN KEY (flavor_id) REFERENCES flavor (flavor_id)
 );
 
+CREATE TABLE favorite (
+    user_id INT UNSIGNED,
+    drink_id INT UNSIGNED,
+    PRIMARY KEY (user_id, drink_id),
+    FOREIGN KEY (user_id) REFERENCES user (user_id),
+    FOREIGN KEY (drink_id) REFERENCES drink (drink_id)
+);
+
 INSERT INTO manufac_location VALUES(1, "106 E Meme Street", "Spokane", "Washington",
 "United States", "PO BOX 77768");
 INSERT INTO manufac_location VALUES(2, "123 E Boone Avenue", "Seattle","Washington",
@@ -73,8 +81,8 @@ INSERT INTO manufac_location VALUES(4, "89123 NE 344th Ct.", "Cheesetown","Orego
 INSERT INTO manufacturer VALUES(1,"Pepsi Co",1,5000000);
 INSERT INTO manufacturer VALUES(2,"Coca-Cola Co",2,45000000);
 
-INSERT INTO user VALUES(1, 'admin', 'admin', 'U');
-INSERT INTO user VALUES(2, 'Bepsi', 'ImBepsi', 'M');
+INSERT INTO user VALUES(NULL, 'admin', 'admin', 'U');
+INSERT INTO user VALUES(NULL, 'Bepsi', 'ImBepsi', 'M');
 
 INSERT INTO flavor VALUES(1,"Cola");
 INSERT INTO flavor VALUES(2,"Lemon-Lime");
@@ -100,6 +108,10 @@ INSERT INTO drink VALUES(9,"Sprit",1,0,30,25,8,1,2);
 INSERT INTO drink VALUES(10,"Orange Fantuh",2,0,30,25,8,1,5);
 INSERT INTO drink VALUES(11,"Grape Fantuh",2,0,36,27,8,1,6);
 INSERT INTO drink VALUES(12,"Orange Sprit",1,0,36,27,8,1,5);
+
+INSERT INTO favorite VALUES(1, 1);
+INSERT INTO favorite VALUES(1, 3);
+INSERT INTO favorite VALUES(1, 8);
 
 SELECT d.drink_name, f.flavor_name, dt.drink_type_name, d.sugar_content, d.caffeine_content
 FROM drink d JOIN flavor f ON d.flavor_id = f.flavor_id

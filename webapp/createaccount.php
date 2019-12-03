@@ -14,19 +14,24 @@
                 Username:<br>
                 <input type="text" name="username"><br>
                 Password:<br>
-                <input type="text" name="password"><br>
+                <input type="password" name="password"><br>
                 Repeat Pasword:<br>
-                <input type="text" name="re-password"><br>
-                <input type="submit" value="Submit">
-            </form>
-            <form>
-                <input type="radio" name="Manufacterer" value="User" checked> user<br>
-                <input type="radio" name="Manufacterer" value="Manufacterer"> Manufacterer<br>
+                <input type="password" name="re-password"><br>
+                <input type='radio' name='usertype' value='U'>User</br>
+                <input type='radio' name='usertype' value='M'>Manufacturer</br>
+                <input type="submit" value="Submit" name='create'>
             </form>
         </fieldset>
         <?php
         include('database.php');
-        if(is)
+        if(isset($_POST['create']) && isset($_POST['username']) && isset($_POST['password'])){
+            $username = $_POST['username'];
+            $password = $_POST['password'];
+            $usertype = $_POST['usertype'];
+            $query = "INSERT INTO user VALUES (NULL, '$username', '$password', '$usertype')";
+            $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+            header('Location: index.html');
+        }
         ?>
     </div>
 </body>
