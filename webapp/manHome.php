@@ -13,11 +13,12 @@
   <div id="container">
   <?php
     include('database.php');
-    $manufac_id = $_SESSION['user_id'];
-    $dbRecords = mysql_query("SELECT manufac_name,manufac_id FROM manufacturer WHERE user_id = $manufac_id",$dbLocalhost) or die("Problem reading table: ".mysql_error());
+    $user_id = $_SESSION['user_id'];
+    $dbRecords = mysql_query("SELECT manufac_name,manufac_id FROM manufacturer WHERE user_id = $user_id",$dbLocalhost) or die("Problem reading table: ".mysql_error());
     $record = mysql_fetch_row($dbRecords);
     $manufac_name = $record[0];
-    $_SESSION['manufac_id'] = $record[1];
+    $manufac_id = $record[1];
+    $_SESSION['manufac_id'] = $manufac_id;
     
     $headername = strtoupper($manufac_name);
     echo "<h2> WELCOME $headername</h2>";

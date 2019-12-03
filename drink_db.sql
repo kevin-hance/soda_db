@@ -49,7 +49,7 @@ CREATE TABLE flavor(
 );
 
 CREATE TABLE drink(
-    drink_id INT UNSIGNED,
+    drink_id INT UNSIGNED AUTO_INCREMENT,
     drink_name VARCHAR(50) NOT NULL,
     manufac_id INT UNSIGNED NOT NULL,
     caffeine_content INT UNSIGNED NOT NULL,
@@ -100,18 +100,18 @@ INSERT INTO drink_type VALUES(2, "Health");
 INSERT INTO drink_type VALUES(3, "Energy Drink");
 
 /* drink_id, drink_name, manufac_id, caffeine_content, sugar_content, sodium_content, serving_size, drink_type_id, flavor_id */
-INSERT INTO drink VALUES(1,"Bepsi",1,100,40,25,16,1,1);
-INSERT INTO drink VALUES(2,"Coke",2,100,36,27,16,1,1);
-INSERT INTO drink VALUES(3,"Mountain Loo",1,96,38,25,8,1,2);
-INSERT INTO drink VALUES(4,"Cherry Bepsi",1,100,45,39,12,1,3);
-INSERT INTO drink VALUES(5,"Vitamin Water Cherry",2,0,36,45,16,2,3);
-INSERT INTO drink VALUES(6,"Bang Cherry",2,300,0,20,16,3,3);
-INSERT INTO drink VALUES(7,"Sugarfree Redbull",1,81,0,15,8,3,4);
-INSERT INTO drink VALUES(8,"Normal Redbull",1,81,20,15,8,3,4);
-INSERT INTO drink VALUES(9,"Sprit",1,0,30,25,8,1,2);
-INSERT INTO drink VALUES(10,"Orange Fantuh",2,0,30,25,8,1,5);
-INSERT INTO drink VALUES(11,"Grape Fantuh",2,0,36,27,8,1,6);
-INSERT INTO drink VALUES(12,"Orange Sprit",1,0,36,27,8,1,5);
+INSERT INTO drink VALUES(NULL,"Bepsi",1,100,40,25,16,1,1);
+INSERT INTO drink VALUES(NULL,"Coke",2,100,36,27,16,1,1);
+INSERT INTO drink VALUES(NULL,"Mountain Loo",1,96,38,25,8,1,2);
+INSERT INTO drink VALUES(NULL,"Cherry Bepsi",1,100,45,39,12,1,3);
+INSERT INTO drink VALUES(NULL,"Vitamin Water Cherry",2,0,36,45,16,2,3);
+INSERT INTO drink VALUES(NULL,"Bang Cherry",2,300,0,20,16,3,3);
+INSERT INTO drink VALUES(NULL,"Sugarfree Redbull",1,81,0,15,8,3,4);
+INSERT INTO drink VALUES(NULL,"Normal Redbull",1,81,20,15,8,3,4);
+INSERT INTO drink VALUES(NULL,"Sprit",1,0,30,25,8,1,2);
+INSERT INTO drink VALUES(NULL,"Orange Fantuh",2,0,30,25,8,1,5);
+INSERT INTO drink VALUES(NULL,"Grape Fantuh",2,0,36,27,8,1,6);
+INSERT INTO drink VALUES(NULL,"Orange Sprit",1,0,36,27,8,1,5);
 
 INSERT INTO favorite VALUES(1, 1);
 INSERT INTO favorite VALUES(1, 3);
