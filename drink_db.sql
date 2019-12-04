@@ -113,6 +113,7 @@ INSERT INTO drink VALUES(NULL,"Orange Fantuh",2,0,30,25,8,1,5);
 INSERT INTO drink VALUES(NULL,"Grape Fantuh",2,0,36,27,8,1,6);
 INSERT INTO drink VALUES(NULL,"Orange Sprit",1,0,36,27,8,1,5);
 
+
 INSERT INTO favorite VALUES(1, 1);
 INSERT INTO favorite VALUES(1, 3);
 INSERT INTO favorite VALUES(1, 8);
