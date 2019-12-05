@@ -24,7 +24,7 @@
     <div>
       <div style="float:left; width:40%;">
         <form action="favorites.php" method="POST" style="margin:10px;">
-          <input type="submit" value="Your Favorites"/>
+          <input type="submit" value="Add Favorites"/>
         </form>
         <form action="search.php" style="margin:10px;">
           <input type="submit" value="Search Sodas"/>
