@@ -35,7 +35,7 @@
         echo "<p>Caffeine Content: $record[3] mg </p>";
         echo "<p>Sugar Content: $record[4] mg </p>";
         echo "<p>Sodium Content: $record[5] mg </p>";
-        echo "<p>Serving Size: $record[6] ml</p>";
+        echo "<p>Serving Size: $record[6] fl oz</p>";
         echo "<p>Flavor: $record3[0]</p>";
         echo "<p>Drink Type: $record4[0]</p>";
 

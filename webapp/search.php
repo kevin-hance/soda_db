@@ -79,14 +79,14 @@
         
         $firstAtt = 1;
         if(!empty($drink_name)){
-          $wherestatement .= " d.drink_name = '$drink_name' ";
+          $wherestatement .= " d.drink_name LIKE '%$drink_name%' ";
           $firstAtt = 0;
         }
         if(!empty($manufac_name)){
           if($firstAtt == 0){
             $wherestatement .= 'AND ';
           }
-          $wherestatement .= " m.manufac_name = '$manufac_name' ";
+          $wherestatement .= " m.manufac_name LIKE '%$manufac_name%' ";
           $firstAtt = 0;
         }
         if(!empty($caffeine_content)){

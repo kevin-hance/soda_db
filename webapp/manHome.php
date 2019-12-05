@@ -42,9 +42,13 @@
                     FROM drink d
                     WHERE manufac_id = '$manufac_id'";
           $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          echo "<form action='results.php' method='POST'>";
           while($record = mysql_fetch_row($dbRecords)){
-            echo "<p>{$record[0]}</p>";
-        }
+            echo "<input type= 'submit' value='{$record[0]}' name='drink_name'/>";
+            echo "<br></br>";
+          }
+        echo "</form>";
+        
         ?>
       </div>
     </div>
