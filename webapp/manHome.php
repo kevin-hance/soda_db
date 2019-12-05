@@ -48,7 +48,7 @@
             echo "<br></br>";
           }
         echo "</form>";
-        
+        mysql_close($dbLocalhost);
         ?>
       </div>
     </div>

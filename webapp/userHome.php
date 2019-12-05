@@ -31,18 +31,41 @@
         </form>
       </div>
       <div style="float:left; width:40%; border:black; border-width:3px; border-style:solid; padding:3px;">
-        <h3> User favorite sodas </h3>
         <?php
           $query = "SELECT d.drink_name 
                     FROM drink d JOIN favorite f USING (drink_id)
                     WHERE user_id = '$user_id'";
           $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          echo "<fieldset> <legend>Your favorite sodas</legend>";
           echo "<form action='results.php' method='POST'>";
           while($record = mysql_fetch_row($dbRecords)){
             echo "<input type= 'submit' value='{$record[0]}' name='drink_name'/>";
             echo "<br></br>";
           }
           echo "</form>";
+          echo "</fieldset>";
+          $query = "SELECT f.flavor_id
+                    FROM flavor f JOIN drink d ON (f.flavor_id = d.flavor_id)
+                    GROUP BY f.flavor_id
+                    HAVING count(*) = (SELECT max(l.cf)
+                                       FROM (SELECT count(*) AS cf
+                                             FROM drink d2
+                                             GROUP BY d2.flavor_id) l);";
+          $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          $record = mysql_fetch_row($dbRecords);
+          $query = "SELECT d.drink_name 
+                    FROM drink d JOIN flavor f USING (flavor_id)
+                    WHERE f.flavor_id = '$record[0]'";
+          $dbRecords = mysql_query($query,$dbLocalhost) or die("Problem reading table: ".mysql_error());
+          echo "<fieldset> <legend>Most Popular Sodas</legend>";
+          echo "<form action='results.php' method='POST'>";
+          while($record = mysql_fetch_row($dbRecords)){
+            echo "<input type= 'submit' value='{$record[0]}' name='drink_name'/>";
+            echo "<br></br>";
+          }
+          echo "</form>";
+          echo "</fieldset>";
+          mysql_close($dbLocalhost);
         ?>
       </div>
     </div>

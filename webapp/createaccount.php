@@ -50,6 +50,7 @@
            
             header('Location: index.html');
         }
+        mysql_close($dbLocalhost);
         ?>
     </div>
 </body>
