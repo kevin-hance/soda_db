@@ -121,7 +121,7 @@
           if($firstAtt == 0){
             $wherestatement .= 'AND ';
           }
-          $wherestatement .= " dt.drink_type_id = '$type' ";
+          $wherestatement .= " dt.drink_type_id = '$drink_type' ";
           $firstAtt = 0;
         }
         if($flavor != 0){
