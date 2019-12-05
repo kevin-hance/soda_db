@@ -14,7 +14,7 @@
   <?php
     include('database.php');
     $user_id = $_SESSION['user_id'];
-    $dbRecords = mysql_query("SELECT manufac_name,manufac_id FROM manufacturer WHERE user_id = $user_id",$dbLocalhost) or die("Problem reading table: ".mysql_error());
+    $dbRecords = mysql_query("SELECT manufac_name,manufac_id FROM manufacturer WHERE user_id = '$user_id'",$dbLocalhost) or die("Problem reading table: ".mysql_error());
     $record = mysql_fetch_row($dbRecords);
     $manufac_name = $record[0];
     $manufac_id = $record[1];

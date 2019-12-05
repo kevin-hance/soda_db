@@ -7,141 +7,153 @@
 </head>
 
 <body>
+<div id='container'>
     <fieldset>
       <legend>Search Query</legend>
-      <form action='' method='POST'>
-        
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchcheckbox[]" value="drink_name_checkbox">
-          <h4>Drink name:</h4>
+      
+        <form action='' method='POST'>
+          <h4 style="display:inline-block;">Drink name:</h4>
           <input type="text" name="drink_name_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="manufac_checkbox">
-          <h4>Manufacturer name:</h4>
+          <h4 style="display:inline-block;">Manufacturer name:</h4>
           <input type="text" name="manufac_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="caffeine_checkbox">
-          <h4>Caffeine content (mg):</h4>
+          <h4 style="display:inline-block;">Caffeine content (mg):</h4>
           <input type="text" name="caffeine_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="sugar_checkbox">
-          <h4>Sugar content (g):</h4>
+          <h4 style="display:inline-block;">Sugar content (g):</h4>
           <input type="text" name="sugar_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="sodium_checkbox">
-          <h4>Sodium content (mg):</h4>
+          <h4 style="display:inline-block;">Sodium content (mg):</h4>
           <input type="text" name="sodium_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="servingsize_checkbox">
-          <h4>Serving size (fl oz):</h4>
+          <h4 style="display:inline-block;">Serving size (fl oz):</h4>
           <input type="text" name="servingsize_field"><br>
-        </div>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="drinktype_checkbox">
-          <h4>Drink type:</h4>
-          <input type="text" name="drinktype_field"><br>
-        </div>
+          <h4 style="display:inline-block;">Flavor:</h4>
+          <select name="flavor">
+              <option value="0">Please select a flavor</option>
+              <option value="1">Cola</option>
+              <option value="2">Lemon-Lime</option>
+              <option value="3">Cherry</option>
+              <option value="4">Redbull</option>
+              <option value="5">Orange</option>
+              <option value="6">Grape</option>
+          </select><br>
 
-        <div class="search-div">
-          <input class="search-box" type="checkbox" name="searchCheckbox[]" value="flavor_checkbox">
-          <h4>Flavor:</h4>
-          <input type="text" name="flavor_field"><br>
-        </div>
-        <input type="submit" name="search_button" value="Search">
-      </form>
+          <h4 style="display:inline-block;">Type:</h4>
+          <select name="type">
+            <option value="0">Please select a type</option>
+            <option value="1">Soda</option>
+            <option value="2">Health</option>
+            <option value="3">Energy</option>
+          </select><br>
+
+          <input type="submit" name="search_button" value="Search">
+        </form>
+        
     </fieldset>
-
+    </div>
 
   
-  <div>
+  <div id='container'>
+    <fieldset>
+      <legend>Search Results</legend>
     <?php
       include('database.php');
-      if(isset($_POST['search_button'])){ //  && isset($_POST['searchCheckbox[]'])
+      if(isset($_POST['search_button'])){
         $drink_name = $_POST['drink_name_field'];
         $manufac_name = $_POST['manufac_field'];
         $caffeine_content = $_POST['caffeine_field'];
         $sugar_content = $_POST['sugar_field'];
         $sodium_content = $_POST['sodium_field'];
         $serving_size = $_POST['servingsize_field'];
-        $drink_type = $_POST['drinktype_field'];
-        $flavor = $_POST['flavor_field'];
+        $drink_type = $_POST['type'];
+        $flavor = $_POST['flavor'];
 
-        $query = "SELECT d.drink_name, m.manufac_name, d.caffeine_content, d.sugar_content, d.sodium_content, d.serving_size, dt.drink_type_name, f.flavor_name 
+        $query = "SELECT d.drink_name
                   FROM drink d JOIN flavor f ON d.flavor_id = f.flavor_id
                   JOIN drink_type dt ON d.drink_type_id = dt.drink_type_id
-                  JOIN manufacturer m ON d.manufac_id = m.manufac_id
-                  WHERE ";
-
-        // this is where the forloop goes
-        $wherestatement = "d.caffeine_content > 0";
+                  JOIN manufacturer m ON d.manufac_id = m.manufac_id ";
+        $wherestatement = "WHERE ";
         
-        if(isset($_POST['done'])){
-          
+        $firstAtt = 1;
+        if(!empty($drink_name)){
+          $wherestatement .= " d.drink_name = '$drink_name' ";
+          $firstAtt = 0;
+        }
+        if(!empty($manufac_name)){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " m.manufac_name = '$manufac_name' ";
+          $firstAtt = 0;
+        }
+        if(!empty($caffeine_content)){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " d.caffeine_content >= '$caffeine_content' ";
+          $firstAtt = 0;
+        }
+        if(!empty($sugar_content)){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " d.sugar_content >= '$sugar_content' ";
+          $firstAtt = 0;
+        }
+        if(!empty($sodium_content)){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " d.sodium_content >= '$sodium_content' ";
+          $firstAtt = 0;
+        }
+        if(!empty($serving_size)){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " d.serving_size >= '$serving_size' ";
+          $firstAtt = 0;
+        }
+        if($drink_type != 0){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " dt.drink_type_id = '$type' ";
+          $firstAtt = 0;
+        }
+        if($flavor != 0){
+          if($firstAtt == 0){
+            $wherestatement .= 'AND ';
+          }
+          $wherestatement .= " f.flavor_id = '$flavor' ";
+          $firstAtt = 0;
+        }
+        if(!($wherestatement == 'WHERE ')){
+          $query .= $wherestatement;
         }
 
         $orderby = " ORDER BY d.drink_name ASC;";
-
-        $query .= $wherestatement;
+        
         $query .= $orderby;
         
 
         $dbRecords = mysql_query($query, $dbLocalhost) or die("Problem reading table: ".mysql_error());
         
-
-        echo "<div>
-                <table border=\"1\">
-                  <caption><strong>Search Results</strong></caption>
-                  <tr>
-                    <td><strong>Drink Name</strong></td>
-                    <td><strong>Manufacturer</strong></td>
-                    <td><strong>Caffeine Content</strong></td>
-                    <td><strong>Sugar Content</strong></td>
-                    <td><strong>Sodium Content</strong></td>
-                    <td><strong>Serving Size</strong></td>
-                    <td><strong>Drink Type</strong></td>
-                    <td><strong>Flavor</strong></td>
-                  </tr>";
-
-        while($record = mysql_fetch_row($dbRecords)){
-          $drink_name_result = $record[0];
-          $manufac_name_result = $record[1];
-          $caffeine_content_result = $record[2];
-          $sugar_content_result = $record[3];
-          $sodium_content_result = $record[4];
-          $serving_size_result = $record[5];
-          $drink_type_result = $record[6];
-          $flavor_result = $record[7];
-          echo "<tr>
-                <td>$record[0]</td>
-                <td>$record[1]</td>
-                <td>$record[2]</td>
-                <td>$record[3]</td>
-                <td>$record[4]</td>
-                <td>$record[5]</td>
-                <td>$record[6]</td>
-                <td>$record[7]</td>
-              </tr>";
-        }
-
-        echo "</table></div>";
+        echo "<form action='results.php' method='POST'>";
+          while($record = mysql_fetch_row($dbRecords)){
+            echo "<input type= 'submit' value='{$record[0]}' name='drink_name'/>";
+            echo "<br></br>";
+          }
+        echo "</form>";
         
-        
-
         mysql_close($dbLocalhost);
         
       }
     ?>
+    </fieldset>
   </div>
 </body>
 
